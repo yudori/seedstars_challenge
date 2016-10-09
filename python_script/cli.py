@@ -2,12 +2,13 @@ from jenkinsapi.jenkins import Jenkins
 
 import click
 
+
 def get_server_instance(url, username, password):
     server = Jenkins(url, username=username, password=password)
     return server.version
 
 
-@click.group
+@click.group()
 def main():
     pass
 
@@ -24,4 +25,5 @@ def get_jobs(address, username, password):
 
 
 if __name__ == "__main__":
-    print get_server_instance()
+    #print get_server_instance()
+    main.add_command(get_jobs)
