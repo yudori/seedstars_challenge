@@ -7,5 +7,5 @@ This django application for storing and viewing names and emails
 
 In the django_app directory, run the following to start server:
 
-``` python manage.py runserver
+<code> python manage.py runserver </code>
 
