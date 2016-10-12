@@ -2,7 +2,7 @@ import sqlite3
 from datetime import datetime
 
 
-db_file = 'jenkins_data.db'
+conn = sqlite3.connect('jenkins_data.db')
 
 
 class Job:
@@ -17,39 +17,28 @@ class Job:
 
 
 def create_table():
-    conn = sqlite3.connect(db_file)
-    try:
+    with conn:
         c = conn.cursor()
-
         c.execute('''CREATE TABLE IF NOT EXISTS jobs
                      (job_name text, status text,
                       time_last_checked text);
                       ''')
-
         c.execute('''CREATE UNIQUE INDEX IF NOT EXISTS idx ON jobs
                       (job_name);''')
-
         conn.commit()
-    finally:
-        conn.close()
 
 
 def save_job(job):
-    conn = sqlite3.connect(db_file)
-    c = conn.cursor()
-
-    values = (job.job_name, job.status, datetime.utcnow())
-
-    c.execute("REPLACE INTO jobs VALUES (?,?,?)", values)
-
-    conn.commit()
-    conn.close()
+    with conn:
+        c = conn.cursor()
+        values = (job.job_name, job.status, datetime.utcnow())
+        c.execute("REPLACE INTO jobs VALUES (?,?,?)", values)
+        conn.commit()
 
 
 def print_jobs():
-    conn = sqlite3.connect(db_file)
-    c = conn.cursor()
-    for row in c.execute('SELECT * FROM jobs ORDER BY time_last_checked'):
-        print Job(row[0], row[1], row[2])
-    conn.close()
+    with conn:
+        c = conn.cursor()
+        for row in c.execute('SELECT * FROM jobs ORDER BY time_last_checked'):
+            print Job(row[0], row[1], row[2])
 

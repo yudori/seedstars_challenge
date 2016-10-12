@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block container %}
+{% if persons.count > 0 %}
+<div class="panel panel-default">
+  <div class="panel-heading">Records</div>
+  <table class="table">
+    {% for person in persons %}
+    <tr><td><span>{{person.email}}</span></td>
+        <td><span>{{person.name}}</span></td></tr>
+    {% endfor %}
+  </table>
+</div>
+{% else %}
+  <p><span class="label label-info">You have no stored records yet</span></p>
+{% endif %}
+{% endblock %}

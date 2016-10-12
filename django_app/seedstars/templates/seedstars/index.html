@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block container %}
+<div class="main-block">
+    <div>
+        <h2>Welcome!</h2>
+    </div>
+    <span class="options">
+        <a class="btn btn-primary" href="{% url 'seedstars:add' %}">Add</a>
+        <a class="btn btn-default" href="{% url 'seedstars:list' %}">List</a>
+    </span>
+</div>
+{% endblock %}

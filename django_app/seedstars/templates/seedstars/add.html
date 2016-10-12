@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block container %}
+<div class="main-block">
+    {% if error_message %}<p><span class="label label-danger">{{ error_message }}</span></p>{% endif %}
+    {% if success_message %}<p><span class="label label-success">{{ success_message }}</span></p>{% endif %}
+    <form action="{% url 'seedstars:add' %}" method="POST">
+    {% csrf_token %}
+        <input class="form-control" type="email" name="email" placeholder="Email Address" /><br/>
+        <input class="form-control" type="text" name="name" placeholder="Full Name" /><br/>
+        <input class="btn btn-primary form-control" type="submit" value="Add" />
+    </form>
+</div>
+{% endblock %}
