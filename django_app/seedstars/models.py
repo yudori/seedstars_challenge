@@ -4,7 +4,7 @@ from django.db import models
 
 
 class Person(models.Model):
-    email = models.CharField(max_length=150, primary_key=True)
+    email = models.EmailField(max_length=150, primary_key=True)
     name = models.CharField(max_length=150)
 
     def __str__(self):
